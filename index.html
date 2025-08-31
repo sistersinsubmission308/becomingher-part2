@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becoming HeR Part 2 - Sisters in Submission</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a1a;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .flyer-header {
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+            background: #0a0a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .flyer-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 26, 0) 0%, rgba(10, 10, 26, 0.3) 100%);
+            pointer-events: none;
+        }
+
+        .flyer-image {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(123, 104, 238, 0.3);
+            border: 2px solid #7B68EE;
+        }
+
+        .fallback-header {
+            width: 100%;
+            min-height: 400px;
+            background: linear-gradient(135deg, #1a0d2e 0%, #2d1b69 50%, #4c2f8a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fallback-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(123, 104, 238, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .fallback-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        .fallback-title {
+            font-size: 4.5em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #7B68EE, #9370DB, #FFD700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .fallback-subtitle {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .fallback-details {
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-top: 30px;
+        }
+
+        .fallback-details p {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .fallback-details .address {
+            font-size: 1em;
+            color: #b19cd9;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #0a0a1a;
+        }
+
+        .main-title {
+            font-size: 4em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #7B68EE, #9370DB);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #b19cd9;
+            font-weight: 300;
+        }
+
+        .section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid #3d2f5f;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(123, 104, 238, 0.1);
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #7B68EE;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .about-section {
+            text-align: center;
+        }
+
+        .about-section p {
+            font-size: 1.2em;
+            color: #d1c7f0;
+            line-height: 1.8;
+        }
+
+        .event-details {
+            background: linear-gradient(135deg, #2d1b69 0%, #4c2f8a 100%);
+            border: 2px solid #7B68EE;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .event-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(123, 104, 238, 0.3);
+        }
+
+        .event-label {
+            font-size: 0.9em;
+            color: #b19cd9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .event-value {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .expectations-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .expectations-list li {
+            background: rgba(123, 104, 238, 0.1);
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #7B68EE;
+            font-size: 1.1em;
+        }
+
+        .expectations-list li strong {
+            color: #7B68EE;
+        }
+
+        .register-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .register-btn {
+            background: linear-gradient(45deg, #7B68EE, #9370DB);
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.4em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 30px rgba(123, 104, 238, 0.4);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(123, 104, 238, 0.6);
+            background: linear-gradient(45deg, #9370DB, #8A2BE2);
+        }
+
+        .registration-form {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid #3d2f5f;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(123, 104, 238, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #7B68EE;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #3d2f5f;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #7B68EE;
+            box-shadow: 0 0 15px rgba(123, 104, 238, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #888;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #7B68EE, #9370DB);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 104, 238, 0.5);
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #2d1b69 0%, #1a0d2e 100%);
+            border: 2px solid #7B68EE;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .social-link {
+            background: linear-gradient(45deg, #7B68EE, #9370DB);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(123, 104, 238, 0.5);
+            background: linear-gradient(45deg, #9370DB, #8A2BE2);
+        }
+
+        .church-info {
+            margin-top: 30px;
+            color: #b19cd9;
+            font-size: 1.1em;
+        }
+
+        .church-info strong {
+            color: white;
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .error-message {
+            background: linear-gradient(45deg, #DC143C, #FF6347);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .flyer-header {
+                padding: 10px;
+            }
+            
+            .flyer-image {
+                border-radius: 10px;
+            }
+            
+            .fallback-title {
+                font-size: 2.8em;
+            }
+            
+            .fallback-subtitle {
+                font-size: 2em;
+            }
+            
+            .fallback-details {
+                font-size: 1.1em;
+            }
+            
+            .main-title {
+                font-size: 2.5em;
+            }
+            
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flyer-header">
+        <div class="fallback-header">
+            <div class="fallback-content">
+                <h1 class="fallback-title">BECOMING HeR</h1>
+                <h2 class="fallback-subtitle">PART II</h2>
+                <div class="fallback-details">
+                    <p>📅 SATURDAY, OCTOBER 4TH</p>
+                    <p>🕐 11:00 AM - 1:30 PM</p>
+                    <p>📍 THE CHRISTIAN CHURCH OF CHESTER</p>
+                    <p class="address">308 West Third St. Chester, PA 19013</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section about-section">
+            <h2 class="section-title">About Sisters in Submission (SIS) 💜✨</h2>
+            <p>SIS equips women to embrace submission as strength, break generational cycles, and build marriages that glorify God. We are a community of women walking in purpose, strategy, and divine alignment.</p>
+        </div>
+
+        <div class="section event-details">
+            <h2 class="section-title">Workshop Details: Becoming HeR Part II 🦋</h2>
+            
+            <div class="event-grid">
+                <div class="event-item">
+                    <div class="event-label">📅 Date</div>
+                    <div class="event-value">Saturday<br>October 4th</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-label">⏰ Time</div>
+                    <div class="event-value">11:00 AM<br>- 1:30 PM</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-label">📍 Location</div>
+                    <div class="event-value">The CCC<br>
+                    <small style="font-size: 0.7em; color: #b19cd9;">308 West Third St.<br>Chester, PA 19013</small></div>
+                </div>
+                <div class="event-item">
+                    <div class="event-label">💰 Cost</div>
+                    <div class="event-value">FREE<br><small style="font-size: 0.7em; color: #b19cd9;">Love-offering optional</small></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 style="color: #7B68EE; font-size: 1.6em; margin-bottom: 25px; text-align: center;">What to Expect:</h3>
+                <ul class="expectations-list">
+                    <li>🎯 <strong>Strategic Planning:</strong> Learn to align your goals with God's purpose for your life</li>
+                    <li>💡 <strong>Intentional Living:</strong> Develop practical steps to live purposefully in every area</li>
+                    <li>🙏 <strong>Divine Alignment:</strong> Discover how to seek God's guidance in decision-making</li>
+                    <li>💪 <strong>Purposeful Action:</strong> Move from knowing your calling to actively walking in it</li>
+                    <li>🤝 <strong>Sisterhood:</strong> Connect with like-minded women on the same journey</li>
+                    <li>📖 <strong>Biblical Foundation:</strong> Ground your strategy in scriptural wisdom and truth</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="register-section">
+            <a href="#regForm" class="register-btn">Register Now</a>
+        </div>
+
+        <div class="registration-form" id="regForm">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #7B68EE; font-size: 2.2em;">Registration Form</h2>
+            
+            <div class="success-message" id="successMessage">
+                🎉 Thank you for registering! We'll send confirmation details to your email shortly. We can't wait to see you at Becoming HeR Part II!
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                ⚠️ There was an error submitting your registration. Please try again or contact us directly.
+            </div>
+            
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="church">Home Church (Optional)</label>
+                    <input type="text" id="church" name="church">
+                </div>
+                
+                <div class="form-group">
+                    <label for="maritalStatus">Marital Status</label>
+                    <select id="maritalStatus" name="maritalStatus">
+                        <option value="">Please Select</option>
+                        <option value="single">Single</option>
+                        <option value="engaged">Engaged</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="widowed">Widowed</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="expectations">What are you hoping to gain from this workshop?</label>
+                    <textarea id="expectations" name="expectations" rows="4" placeholder="Share your heart and expectations..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prayerRequests">Prayer Requests (Optional)</label>
+                    <textarea id="prayerRequests" name="prayerRequests" rows="3" placeholder="How can we pray for you?"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Registration</button>
+                
+                <p style="text-align: center; margin-top: 20px; font-size: 1em; color: #b19cd9;">
+                    * Required fields. Registration will be sent to sistersinsubmission308@gmail.com
+                </p>
+            </form>
+        </div>
+
+        <div class="section contact-section">
+            <h2 class="section-title">Join the SIS Circle & Contact 🤝</h2>
+            <p style="margin-bottom: 25px; font-size: 1.2em; color: #d1c7f0;">Connect with our community and support our ministry</p>
+            
+            <div class="contact-links">
+                <a href="https://www.facebook.com/groups/sistersinsubmission" class="social-link">
+                    📱 Join Our Private Group
+                </a>
+                <a href="#" class="social-link">
+                    💰 CashApp $SISMinistry
+                </a>
+                <a href="mailto:sistersinsubmission308@gmail.com" class="social-link">
+                    📧 Email Us
+                </a>
+                <a href="https://christianchurchofchester.com" class="social-link">
+                    🌐 Church Website
+                </a>
+            </div>
+            
+            <div class="church-info">
+                <p><strong>The Christian Church of Chester</strong></p>
+                <p>Pastor: <strong>Richie R. Thomas II</strong> | First Lady: <strong>Tara Thomas</strong></p>
+                <p>Website: <strong>CHRISTIANCHURCHOFCHESTER.COM</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced form handling with proper email functionality
+            document.getElementById('registrationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                
+                // Hide previous messages
+                document.getElementById('successMessage').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'none';
+                
+                // Simple validation
+                if (!data.firstName || !data.lastName || !data.email) {
+                    document.getElementById('errorMessage').textContent = '⚠️ Please fill in all required fields (First Name, Last Name, and Email).';
+                    document.getElementById('errorMessage').style.display = 'block';
+                    return;
+                }
+                
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(data.email)) {
+                    document.getElementById('errorMessage').textContent = '⚠️ Please enter a valid email address.';
+                    document.getElementById('errorMessage').style.display = 'block';
+                    return;
+                }
+                
+                // Create email body
+                const emailBody = `
+BECOMING HeR PART II - REGISTRATION
+
+Name: ${data.firstName} ${data.lastName}
+Email: ${data.email}
+Phone: ${data.phone || 'Not provided'}
+Home Church: ${data.church || 'Not provided'}
+Marital Status: ${data.maritalStatus || 'Not provided'}
+
+What are you hoping to gain from this workshop?
+${data.expectations || 'Not provided'}
+
+Prayer Requests:
+${data.prayerRequests || 'Not provided'}
+
+Registration Date: ${new Date().toLocaleString()}
+                `;
+                
+                // Create mailto link
+                const mailtoLink = `mailto:sistersinsubmission308@gmail.com?subject=Becoming HeR Part II Registration - ${data.firstName} ${data.lastName}&body=${encodeURIComponent(emailBody)}`;
+                
+                // Open email client
+                window.location.href = mailtoLink;
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Reset form after short delay
+                setTimeout(() => {
+                    this.reset();
+                }, 2000);
+                
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            });
+
+            // Smooth scrolling for register button
+            document.querySelector('.register-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('#regForm').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+
+            // Add some visual feedback for form interactions
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
